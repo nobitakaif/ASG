@@ -1,18 +1,20 @@
+import express from "express";
+import os from "os";
+export const app = express();
+
+app.get("/", (req, res) => {
+    res.send("Hello World");
+});
 
 
-const express = require("express")
-const os = require("os")
-export const app = express()
-
-
-app.get("/",function(req,res){
-    let n = 0
-    for(let i = 0; i<9999999999;i++){
-        n = n+i
+app.get("/cpu", (req, res) => {
+    for (let i = 0; i < 1000000000; i++) {
+        Math.random();
     }
-    res.status(200).send(`this is your ${n}code ${process.pid} fsano`)
-})
+    res.send("Hello World");
+});
 
-app.get('/os',function(req,res){
-    res.send(os.hostname())
-})
+
+app.get("/host", (req, res) => {
+    res.send(os.hostname());
+});
