@@ -1,14 +1,21 @@
-const express = require("express")
 
-export const app = express()
+const cluster = require("cluster")
+
+const { app } = require("./bin")
 
 
-    app.get("/",function(req,res){
-        let n = 0
-        for(let i = 0; i<9999999999;i++){
-            n = n+i
-        }
-        res.status(200).send(`this is your ${n}code ${process.pid} fsano`)
-    })
+
+
+if(cluster.isPrimary){
+    for(let i=0;i<os.cpus().length;i++){
+        cluster.fork()
+    }
+}
+else{
+    app.listen(8000,()=>{
+        console.log("server is running on port 8000")
+    }) 
+}
+
 
     
